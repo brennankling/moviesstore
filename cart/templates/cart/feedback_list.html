@@ -1,0 +1,15 @@
+
+
+<h2>Customer Feedback</h2>
+<ul>
+    {% for fb in feedbacks %}
+        <li>
+            <strong>{{ fb.name|default:"Anonymous" }}</strong> 
+            ({{ fb.created_at|date:"M d, Y" }}):<br>
+            {{ fb.statement }}
+        </li>
+    {% empty %}
+        <li>No feedback yet.</li>
+    {% endfor %}
+</ul>
+

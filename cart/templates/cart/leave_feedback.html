@@ -1,0 +1,17 @@
+
+
+<h2>We’d love your feedback!</h2>
+<form method="POST">
+    {% csrf_token %}
+    
+    <label for="statement">Your thoughts about the checkout process:</label><br>
+    <textarea name="statement" rows="3" required></textarea><br><br>
+
+    <label for="name">Your name (optional):</label><br>
+    <input type="text" name="name" placeholder="Leave blank to stay anonymous"><br><br>
+
+    <button type="submit">Submit Feedback</button>
+    <a href="{% url 'cart.index' %}">
+        <button type="button">Cancel</button>
+    </a>
+</form>

@@ -8,6 +8,8 @@
         <hr />
         <p>Congratulations, purchase completed. Order number is: <b>#{{ template_data.order_id }}</b>
         </p>
+        <p>Thank you for your order!</p>
+        <a href="{% url 'leave_feedback' %}">Tell us how your checkout went</a>
       </div>
     </div>
   </div>

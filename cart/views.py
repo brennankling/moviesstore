@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404, redirect
 from movies.models import Movie
 from .utils import calculate_cart_total
-from .models import Order, Item
+from .models import Order, Item, CheckoutFeedback
 from django.contrib.auth.decorators import login_required
 
 def index(request):
@@ -57,4 +57,24 @@ def purchase(request):
     template_data['order_id'] = order.id
     return render(request, 'cart/purchase.html',
         {'template_data': template_data})
+
+def leave_feedback(request):
+    if request.method == "POST":
+        statement = request.POST.get("statement")
+        name = request.POST.get("name") or ""  # empty if left blank
+
+        CheckoutFeedback.objects.create(name=name, statement=statement)
+        return redirect("feedback_thankyou")
+
+    return render(request, "cart/leave_feedback.html")
+
+def feedback_thankyou(request):
+    return render(request, "cart/feedback_thankyou.html")
+
+
+def feedback_list(request):
+    feedbacks = CheckoutFeedback.objects.order_by("-created_at")
+    return render(request, "cart/feedback_list.html", {"feedbacks": feedbacks})
+
+
 # Create your views here.
